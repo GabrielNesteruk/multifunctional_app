@@ -1,3 +1,5 @@
+{% load paragraph %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +13,9 @@
     <title>PDF Creator</title>
   </head>
   <body>
-    <h1>Hello</h1>
+    <main role="main" class="container">
+      {% comment %} {% showText text|bold|italic|strike|new_line details %} {% endcomment %}
+    </main>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
