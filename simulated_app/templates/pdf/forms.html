@@ -1,0 +1,16 @@
+{% extends 'pdf/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="alert alert-primary mt-2" role="alert" >
+    Formularz dodawania nowego tekstu do dokumentu PDF. Możliwość wyboru rodzaju czcionki, jej rozmiaru oraz koloru.
+    Dodatkowo w tekście można zastosować następujące filtry:<br>
+    - *słowo* - pogrubienie<br>
+    - **słowo** - pochylenie<br>
+    - ***słowo*** - skreślenie<br>
+    - &nl - przejscie do nowej linii
+    </div>
+    <div class="d-flex justify-content-center">
+        {% crispy form form.helper %}
+    </div>
+{% endblock content %}
