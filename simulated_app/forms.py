@@ -48,3 +48,22 @@ class ChartForm(forms.Form):
             'kolor',
             Submit('submit', 'Dodaj', css_class="btn btn-success mt-2")
         )
+
+
+class TableForm(forms.Form):
+    model = forms.ChoiceField(choices=[('client', 'Klient'), (
+        'product', 'Produkt')])
+    typ = forms.ChoiceField(
+        choices=[('table', 'podstawowy'), ('table table-dark', 'ciemny'), ('table table-striped', 'pasiasty'), ('table table-bordered', 'obramowany')])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'model',
+            'typ',
+            Submit('submit', 'Dodaj', css_class="btn btn-success mt-3")
+        )

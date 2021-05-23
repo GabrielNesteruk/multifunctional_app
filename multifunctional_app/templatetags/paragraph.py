@@ -5,12 +5,12 @@ from django import template
 register = template.Library()
 
 
-def showText(text, text_details):
+def showText(text, color, size, font):
     data = {
         'text': text,
-        'color': text_details['color'],
-        'size': text_details['size'],
-        'font': text_details['font'],
+        'color': color,
+        'size': size,
+        'font': font,
     }
     return data
 

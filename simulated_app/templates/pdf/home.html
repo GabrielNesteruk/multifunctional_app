@@ -1,0 +1,18 @@
+{% extends 'pdf/base.html' %}
+
+{% load paragraph %}
+{% load table %}
+
+{% block content %}
+    {% comment %} wypisanie dodanego tekstu, tablel i wyrkesow {% endcomment %}
+    {% for text in texts %}
+        <div>
+            {% showText text.content|bold|italic|strike|new_line text.font_color text.font_size text.font %}
+        </div>
+    {% endfor %}
+    {% for table in tables %}
+        <div>
+            {% showTable table.field_names table.data table.type %}
+        </div>
+    {% endfor %}
+{% endblock content %}

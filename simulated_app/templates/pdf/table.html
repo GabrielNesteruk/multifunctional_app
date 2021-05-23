@@ -1,0 +1,21 @@
+{% extends 'pdf/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="alert alert-primary mt-2" role="alert" >
+    <p>Tabela zostanie utworzona na podstawie istniejacych modeli w bazie danych. W przypadku typu tabeli mamy do wyboru:<br>
+    - typ podstawowy (podstawowy widok tabeli, bez żadnych dodatków)<br>
+    - typ ciemny (podstawowy widok tabeli w ciemnym motywie)<br>
+    - typ pasiasty (wiersze w tabeli naprzemiennie mają inny odcień)<br>
+    - typ obramowany (każda kolumna i wiersz jest obramowana ramką)
+    </p>
+    </div>
+    {% if added %}
+    <div class="alert alert-success" role="alert">
+        <p>Tabela została dodana pomyślnie!</p>
+    </div>
+    {% endif %}
+    <div class="d-flex justify-content-center">
+        {% crispy form form.helper %}
+    </div>
+{% endblock content %}

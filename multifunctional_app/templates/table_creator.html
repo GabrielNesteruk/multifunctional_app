@@ -1,0 +1,18 @@
+{% load table %}
+
+<table class="{{table_type}}">
+    <thead>
+    {% for head in field_names %}
+       <th>{{ head }}</th>
+    {% endfor %}
+    </thead>
+    <tbody>
+    {% for row in data %}
+        <tr>
+        {% for cell in row %}
+            <td>{{ cell }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
