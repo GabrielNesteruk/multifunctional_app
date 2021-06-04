@@ -7,6 +7,8 @@ from django.db import models
 class Text(models.Model):
     font = models.CharField(max_length=25, choices=[('Times New Roman', 'Times New Roman'), (
         'Arial', 'Arial'), ('Courier New', 'Courier New'), ('Verdana', 'Verdana')], default='Times New Roman')
+    align = models.CharField(max_length=25,
+                             choices=[('text-start', 'Do lewej'), ('text-center', 'Środek'), ('text-end', 'Do prawej')], default='text-start')
     font_size = models.IntegerField(default=25)
     font_color = models.CharField(max_length=20, choices=[('red', 'Czerwony'), (
         'black', 'Czarny'), ('orange', 'Pomarańczowy'), ('green', 'Zielony')], default='black')

@@ -7,9 +7,11 @@ from decimal import Decimal
 class TextForm(forms.Form):
     czcionka = forms.ChoiceField(choices=[('Times New Roman', 'Times New Roman'), (
         'Arial', 'Arial'), ('Courier New', 'Courier New'), ('Verdana', 'Verdana')])
+    wysrodkowanie = forms.ChoiceField(
+        choices=[('text-start', 'do lewej'), ('text-center', 'środek'), ('text-end', 'do prawej')])
     rozmiar = forms.IntegerField(initial=25)
     kolor = forms.ChoiceField(
-        choices=[('red', 'Czerwony'), ('black', 'Czarny'), ('orange', 'Pomarańczowy'), ('green', 'Zielony')])
+        choices=[('black', 'Czarny'), ('red', 'Czerwony'), ('orange', 'Pomarańczowy'), ('green', 'Zielony')])
     tekst = forms.CharField(widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
@@ -20,6 +22,7 @@ class TextForm(forms.Form):
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             'czcionka',
+            'wysrodkowanie',
             'rozmiar',
             'kolor',
             'tekst',

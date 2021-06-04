@@ -6,13 +6,17 @@
 {% block content %}
     {% comment %} wypisanie dodanego tekstu, tablel i wyrkesow {% endcomment %}
     {% for text in texts %}
-        <div>
-            {% showText text.content|bold|italic|strike|new_line text.font_color text.font_size text.font %}
+        <div class="row">
+            <div class="col">
+                {% showText text.content|bold|italic|strike|new_line text.font_color text.font_size text.font text.align%}
+            </div>
         </div>
     {% endfor %}
     {% for table in tables %}
-        <div>
-            {% showTable table.field_names table.data table.type %}
+        <div class="row">
+            <div class="col">
+                {% showTable table.field_names table.data table.type %}
+            </div>
         </div>
     {% endfor %}
 {% endblock content %}

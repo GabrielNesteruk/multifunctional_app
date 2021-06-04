@@ -33,7 +33,8 @@ def text(request):
             color = form.cleaned_data['kolor']
             size = form.cleaned_data['rozmiar']
             font = form.cleaned_data['czcionka']
-            new_text = Text(content=content, font_color=color,
+            align = form.cleaned_data['wysrodkowanie']
+            new_text = Text(content=content, align=align, font_color=color,
                             font_size=size, font=font)
             new_text.save()
     form = TextForm()
