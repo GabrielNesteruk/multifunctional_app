@@ -1,5 +1,6 @@
 from django.core.validators import ip_address_validator_map
 from django.db import models
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -13,6 +14,8 @@ class Text(models.Model):
     font_color = models.CharField(max_length=20, choices=[('red', 'Czerwony'), (
         'black', 'Czarny'), ('orange', 'Pomarańczowy'), ('green', 'Zielony')], default='black')
     content = models.TextField()
+    date_created = models.DateTimeField(default=now, editable=False)
+    data_type = models.CharField(max_length=5, default='text', editable=False)
 
     def __str__(self):
         return 'Tekst nr. ' + str(self.pk)
@@ -39,4 +42,5 @@ class Client(models.Model):
 
 class Visibility(models.Model):
     model_name = models.CharField(max_length=15)
-    table_type = models.CharField(max_length=20, default='table')
+    data_type = models.CharField(max_length=20, default='table')
+    date_created = models.DateTimeField(default=now, editable=False)

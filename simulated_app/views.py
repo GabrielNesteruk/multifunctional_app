@@ -5,11 +5,24 @@ from .models import Text, Visibility, Client
 # Create your views here.
 
 
+def sortFunc(e):
+    return e['date_created']
+
+
 def home(request):
-    context = {
-        'texts': Text.objects.all(),
-        'tables': []
-    }
+    all_objects = []
+    texts_to_show = Text.objects.all()
+    for text in texts_to_show:
+        tmp_data = {
+            'font': text.font,
+            'align': text.align,
+            'font_size': text.font_size,
+            'font_color': text.font_color,
+            'content': text.content,
+            'date_created': text.date_created,
+            'type': text.data_type,
+        }
+        all_objects.append(tmp_data)
 
     tables_to_show = Visibility.objects.all()
     for table in tables_to_show:
@@ -17,11 +30,18 @@ def home(request):
             field_names = [f.name for f in Client._meta.get_fields()]
             data = [[getattr(ins, name) for name in field_names]
                     for ins in Client.objects.prefetch_related().all()]
-            context['tables'].append({
+            tmp_data = {
                 'field_names': field_names,
                 'data': data,
-                'type': table.table_type
-            })
+                'type': table.data_type,
+                'date_created': table.date_created,
+            }
+            all_objects.append(tmp_data)
+    all_objects.sort(key=sortFunc)
+
+    context = {
+        'data': all_objects
+    }
     return render(request, 'pdf/home.html', context)
 
 
@@ -57,7 +77,7 @@ def table(request):
         if form.is_valid():
             model = form.cleaned_data['model']
             table_type = form.cleaned_data['typ']
-            new_table = Visibility(model_name=model, table_type=table_type)
+            new_table = Visibility(model_name=model, data_type=table_type)
             new_table.save()
             successful_operation = True
     form = TableForm()
