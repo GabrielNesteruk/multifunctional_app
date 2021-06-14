@@ -1,12 +1,58 @@
 {% extends 'pdf/base.html' %}
 {% load crispy_forms_tags %}
 
+
+
 {% block content %}
     <div class="alert alert-primary mt-2" role="alert" >
-    Formularz dodawania nowego wykresu do dokumentu PDF. Możliwość wyboru rodzaju wykresu, opisów osi oraz kolorów.
-    <b>Wykres zostanie uzupełniony losowymi danymi wygenerowanymi przez program</b>
+    Formularz dodawania nowego wykresu do dokumentu PDF. Możliwość wyboru rodzaju wykresu. Wykres generowany jest na podstawie aktualnych
+    wartości znajdujących się w bazie danych. Formularz umożliwia również aktualizację danych, które będą wyświetlanie na wykresie.
     </div>
-    <div class="d-flex justify-content-center">
-        {% crispy form form.helper %}
+
+    <div class="row">
+        <div class="col">
+           <div class="card">
+                <div class="card-body">
+                    <form action="/chart/" method="POST">
+                        {% csrf_token %} 
+                        <h5 class="card-title">Dodaj element do wykresu</h5>
+                        <label for="nazwa_danych" class="form-label">Nazwa elementu:</label>
+                        <input id="nazwa_danych" class="form-control" type="text" name="nazwa_danych" aria-describedby="passwordHelpBlock">
+                        <div id="passwordHelpBlock" class="form-text">
+                            Nazwa elementu powinna być unikalna i nie powtarzać się w bazie danych.
+                        </div>
+                        <label for="procent_danych" class="form-label mt-1">Wartość elementu:</label>
+                        <input id="procent_danych" class="form-control" type="number" name="procent_danych">
+                        <button type="submit" class="btn btn-success mt-2" name="add_to_database">Dodaj</button>
+                    </form>  
+                </div>
+            </div>  
+            <div class="card mt-2">
+                <div class="card-body">
+                    <form action="/chart/" method="POST">
+                        {% csrf_token %} 
+                        <h5 class="card-title">Dodaj wykres do dokumentu</h5>
+                        <label for="types" class="form-label">Wybierz typ wykresu:</label>
+                        <select id="types" name="types" class="form-select">
+                            <option value="line">Liniowy</option>
+                            <option value="bar">Słupkowy</option>
+                            <option value="pie">Ciastkowy</option>
+                        </select>
+                        <button type="submit" class="btn btn-success mt-3" name="add_chart">Dodaj</button>
+                    </form> 
+                </div>
+            </div>
+        </div>
+                <div class="col card" align="center">
+                    <div class="card-body">
+                        <h5 class="card-title">Lista elementów w bazie danych</h5>
+                        <ul class="list-group list-group-flush">
+                            {% for chart in chart_list %}
+                                <li class="list-group-item">{{ chart.data_name }} <b>{{ chart.data_value }}</b></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
     </div>
+
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit
+from crispy_forms.layout import Layout, Submit, Field
 from decimal import Decimal
 
 
@@ -21,35 +21,12 @@ class TextForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'czcionka',
-            'wysrodkowanie',
-            'rozmiar',
-            'kolor',
-            'tekst',
-            Submit('submit', 'Dodaj', css_class="btn btn-success")
-        )
-
-
-class ChartForm(forms.Form):
-    typ = forms.ChoiceField(
-        choices=[('bar', 'Słupkowy'), ('line', 'Liniowy'), ('pie', 'Kołowy')])
-    os_x = forms.CharField()
-    os_y = forms.CharField()
-    kolor = forms.ChoiceField(
-        choices=[('red', 'Czerwony'), ('black', 'Czarny'), ('orange', 'Pomarańczowy'), ('green', 'Zielony')])
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.helper = FormHelper
-        self.helper.form_class = 'form-horizontal'
-        self.helper.form_method = 'post'
-        self.helper.layout = Layout(
-            'typ',
-            'os_x',
-            'os_y',
-            'kolor',
-            Submit('submit', 'Dodaj', css_class="btn btn-success mt-2")
+            Field('czcionka', css_class="form-select m-2"),
+            Field('wysrodkowanie', css_class="form-select m-2"),
+            Field('rozmiar', css_class="form-select m-2"),
+            Field('kolor', css_class="form-select m-2"),
+            Field('tekst', css_class="form-control m-2"),
+            Submit('submit', 'Dodaj', css_class="btn btn-success m-2")
         )
 
 
@@ -66,7 +43,7 @@ class TableForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'model',
-            'typ',
-            Submit('submit', 'Dodaj', css_class="btn btn-success mt-3")
+            Field('model', css_class="form-select m-2"),
+            Field('typ', css_class="form-select m-2"),
+            Submit('submit', 'Dodaj', css_class="btn btn-success m-2")
         )

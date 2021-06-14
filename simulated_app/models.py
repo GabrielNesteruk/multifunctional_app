@@ -20,17 +20,12 @@ class Text(models.Model):
     def __str__(self):
         return 'Tekst nr. ' + str(self.pk)
 
-
+#dodawanie danych do bazy (model do bazy)
 class Chart(models.Model):
-    type = models.CharField(max_length=10, choices=[(
-        'bar', 'Słupkowy'), ('line', 'Liniowy'), ('pie', 'Kołowy')], default='Liniowy')
-    x_label = models.CharField(max_length=25, default='x')
-    y_label = models.CharField(max_length=25, default='y')
-    background_color = models.CharField(max_length=15, choices=[('red', 'Czerwony'), (
-        'black', 'Czarny'), ('orange', 'Pomarańczowy'), ('green', 'Zielony'), ('transparent', 'Przezroczysty')], default='transparent')
+    data_name = models.CharField(max_length=40, unique = True, error_messages={'unique' : "Zarejstrowano taka nazwe"}, default="tekst")
+    data_value = models.FloatField(max_length=10, default=0)
+    date_created = models.DateTimeField(default=now, editable=False)
 
-    def __str__(self):
-        return 'Wykres nr. ' + str(self.pk)
 
 
 class Client(models.Model):
@@ -44,3 +39,5 @@ class Visibility(models.Model):
     model_name = models.CharField(max_length=15)
     data_type = models.CharField(max_length=20, default='table')
     date_created = models.DateTimeField(default=now, editable=False)
+    def __str__(self):
+        return str(self.model_name) + ' nr.' + str(self.pk)

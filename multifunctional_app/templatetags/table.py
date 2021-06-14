@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 from django import template
 from django.db import models
 # from project.apps.blog.models
-from simulated_app.models import Client
 
 
 register = template.Library()
