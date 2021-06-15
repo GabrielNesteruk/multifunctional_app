@@ -16,6 +16,11 @@
     </div>
     {% endif %}
     <div class="d-flex justify-content-center">
-        {% crispy form form.helper %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Dodaj tabele do dokumentu</h5>
+                {% crispy form form.helper %}
+            </div>
+        </div>
     </div>
 {% endblock content %}

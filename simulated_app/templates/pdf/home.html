@@ -2,14 +2,21 @@
 
 {% load paragraph %}
 {% load table %}
+{% load chart %}
 
 {% block content %}
     {% comment %} wypisanie dodanego tekstu, tablel i wykresow {% endcomment %}
     {% for object in data %}
-        {% if object.type == 'table' %}
+        {% if object.category == 'table' %}
             <div class="row">
                 <div class="col">
                     {% showTable object.field_names object.data object.type %}
+                </div>
+            </div>
+        {% elif object.category == 'chart' %}
+            <div class="row justify-content-center">
+                <div class="col">
+                    {% showChart object.id object.type object.data 600 300 %}
                 </div>
             </div>
         {% elif object.type == 'text' %}
@@ -21,6 +28,10 @@
         {% endif %}
     {% endfor %}
 
+    <div class="row justify-content-end">
+        <button type="submit" style="width:250px;" class="btn btn-success mt-3">Wygeneruj dokument PDF</button>
+    </div>
+    <footer style="height:30px;"></footer>
     {% comment %} {% for text in texts %}
         <div class="row">
             <div class="col">
