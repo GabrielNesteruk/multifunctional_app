@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .forms import TextForm, TableForm
 from .models import Chart, Text, Visibility, Client
 from django.core import serializers
+from django.db import IntegrityError
 # Create your views here.
 
 
@@ -77,21 +78,28 @@ def text(request):
 
 
 def chart(request):
+    unique_error = False
+    successful_operation = False
     if request.method == 'POST':
         if 'add_to_database' in request.POST:
             nazwa = request.POST["nazwa_danych"]
             procenty = request.POST["procent_danych"]
             wykres = Chart(data_name=nazwa, data_value=procenty)
-            wykres.save()
+            try:
+                wykres.save()
+            except IntegrityError as e:
+                if 'UNIQUE constraint' in str(e.args):
+                    unique_error = True
         elif 'add_chart' in request.POST:
             chart_type = request.POST["types"]
             new_chart = Visibility(model_name="chart", data_type=chart_type)
             new_chart.save()
+            successful_operation = True
 
     chart_list = Chart.objects.all()
 
     return render(request, 'pdf/chart.html',
-                  {'chart_list': chart_list})
+                  {'chart_list': chart_list, 'error': unique_error, 'successful_operation': successful_operation})
 
 
 def table(request):
